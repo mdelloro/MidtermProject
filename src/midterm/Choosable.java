@@ -1,6 +1,6 @@
 package midterm;
 
-public enum choosable {
+public enum Choosable {
 	REVEALED, NOT_REVEALED;
 	
 	public boolean isRevealed(){

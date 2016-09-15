@@ -1,6 +1,6 @@
 package midterm;
 
-public enum cellState {
+public enum CellState {
 	BLANK, MINE, NUMBER;
 	
 }

@@ -1,5 +1,5 @@
 package midterm;
 
-public class cell {
+public class Cell {
 
 }

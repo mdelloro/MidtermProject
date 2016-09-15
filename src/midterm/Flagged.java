@@ -1,6 +1,6 @@
 package midterm;
 
-public enum flagged {
+public enum Flagged {
 	FLAGGED, NOT_FLAGGED;
 
 }
