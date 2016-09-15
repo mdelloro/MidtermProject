@@ -12,8 +12,12 @@ public class MinesweeperApp {
 		int x = 0;
 		int y = 0;
 		int mines = 0;
+		HiddenMinefield hiddenBoard = new HiddenMinefield(5,5,5);
 		
 		System.out.println("****************************************");
+		
+		System.out.println("||||||||||||||||||||||||||||||||||||||||");
+		
 		
 		System.out.println("****************************************");
 		
@@ -21,10 +25,14 @@ public class MinesweeperApp {
 		
 		System.out.println("****************************************");
 		
+		System.out.println("****************************************");
+		
 		
 		System.out.println("Are you ready to sweep some mines with the Bombermen!?!");
 		
 		System.out.println("****************************************");
+		System.out.println("****************************************");
+		
 		
 		System.out.println("What level of skill would you like to play?\n(Beginner)\n(Intermediate)\n(Expert)");
 			String response = scanner.nextLine().toLowerCase();
@@ -33,31 +41,30 @@ public class MinesweeperApp {
 			case "beginner":
 				skill=SkillLevel.BEGINNER;
 				skillquestion=false;
-				HiddenMinefield hiddenBoard = new HiddenMinefield(x,y,mines);
+				hiddenBoard = new HiddenMinefield(8,8,15);
 				break;
 
 			case "intermediate":
+				
 				skill=SkillLevel.INTERMEDIATE;
 				skillquestion=false;
+				hiddenBoard = new HiddenMinefield(15,15,50);
 				break;
 
 			case "expert":
 				skill=SkillLevel.EXPERT;
 				skillquestion=false;
+				hiddenBoard = new HiddenMinefield(30,30,99);
 				break;
 			default:
 				System.out.println("Invalid choice please choose again from the options listed. ");
 				scanner.nextLine();			}
 	}
-			
+		hiddenBoard.placeMines();
+		hiddenBoard.displayBoard();
 		System.out.println("Would you like to play again(y/n)");
 				scanner.nextLine();	
-		//System.out.println("How many mines would you like to play?\n(10-30)");
 		
-		//System.out.println("How many rows would you like to play?\n(8-30)");
-
-		//System.out.println("How many columns would you like to play?\n(8-30)");
-
 	}
 
 }
