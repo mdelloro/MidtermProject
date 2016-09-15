@@ -14,24 +14,27 @@ public class MinesweeperApp {
 		int mines = 0;
 		HiddenMinefield hiddenBoard = new HiddenMinefield(5,5,5);
 		
-		System.out.println("****************************************");
+		System.out.println("********************************************************************************");
 		
-		System.out.println("||||||||||||||||||||||||||||||||||||||||");
-		
-		
-		System.out.println("****************************************");
-		
-		System.out.println("Welcome to the Bombermen Minesweeper Game\nLet's Play a Game!!!");
-		
-		System.out.println("****************************************");
-		
-		System.out.println("****************************************");
+		System.out.println("||||||||||||||||||||||||||||||||||||||||****************************************");
 		
 		
-		System.out.println("Are you ready to sweep some mines with the Bombermen!?!");
+		System.out.println("********************************************************************************");
 		
-		System.out.println("****************************************");
-		System.out.println("****************************************");
+		System.out.println("Welcome to the Bombermen Minesweeper Game\nLet's Play a Game!!!************************************************************");
+		
+		System.out.println("********************************************************************************");
+		
+		System.out.println("----------------------------------------****************************************");
+		
+		
+		System.out.println("********************************************************************************");
+		
+		
+		System.out.println("Are you ready to sweep some mines with the Bombermen!?!*************************");
+		
+		System.out.println("********************************************************************************");
+		System.out.println("********************************************************************************");
 		
 		
 		System.out.println("What level of skill would you like to play?\n(Beginner)\n(Intermediate)\n(Expert)");
