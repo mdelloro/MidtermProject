@@ -10,10 +10,17 @@ public class HiddenMinefield {
 	Random rdm = new Random();
 
 	public HiddenMinefield(int h, int v, int noOfMines) {
-		board = new char[h][v];
+		board = new char[v][h];
 		hiddenBoardSizeH = h;
 		hiddenBoardSizeV = v;
 		this.noOfMines = noOfMines;
+	}
+	
+	public boolean checkCell(int x, int y) {
+		if (board[y][x] == '*') {
+			return true;
+		}
+		return false;
 	}
 
 	public void placeMines() {
@@ -23,7 +30,7 @@ public class HiddenMinefield {
 		while (mineAmount != 0) {
 			h = rdm.nextInt(hiddenBoardSizeH);
 			v = rdm.nextInt(hiddenBoardSizeV);
-			if (checkCell(v, h) == false) {
+			if (checkCell(h, v) == false) {
 				board[v][h] = '*';
 				mineAmount--;
 			} else {
@@ -93,63 +100,63 @@ public class HiddenMinefield {
 		}
 		// Top left corner
 		if (v == 0 && h == 0) {
-			number = 0;
-			if (board[v][h + 1] == '*') {
-				number++;
+			number = 3;
+			if (board[v][h + 1] != '*') {
+				number--;
 			}
-			if (board[v + 1][h] == '*') {
-				number++;
+			if (board[v + 1][h] != '*') {
+				number--;
 			}
-			if (board[v + 1][h + 1] == '*') {
-				number++;
+			if (board[v + 1][h + 1] != '*') {
+				number--;
 			}
 		}
 		// Top right corner
-		if (v == 0 && h == board.length) {
+		if (v == 0 && h == board.length-1) {
 			number = 3;
-			if (board[v][h - 1] == '*') {
+			if (board[v][h - 1] != '*') {
 				number--;
 			}
-			if (board[v - 1][h] == '*') {
+			if (board[v + 1][h] != '*') {
 				number--;
 			}
-			if (board[v - 1][h - 1] == '*') {
+			if (board[v + 1][h - 1] != '*') {
 				number--;
 			}
 		}
 		// Bottom right corner
-		if (v == board[v].length && h == board.length) {
+		if (v == board[v].length-1 && h == board.length-1) {
 			number = 3;
-			if (board[v][h - 1] == '*') {
+			if (board[v][h - 1] != '*') {
 				number--;
 			}
-			if (board[v - 1][h] == '*') {
+			if (board[v - 1][h] != '*') {
 				number--;
 			}
-			if (board[v - 1][h - 1] == '*') {
+			if (board[v - 1][h - 1] != '*') {
 				number--;
 			}
 		}
 		// Bottom left corner
 		if (v == board[v].length-1 && h == 0) {
-			number = 0;
-			if (board[v][h + 1] == '*') {
-				number++;
+			number = 3;
+			if (board[v][h + 1] != '*') {
+				number--;
 			}
-			if (board[v - 1][h] == '*') {
-				number++;
+			if (board[v - 1][h] != '*') {
+				number--;
 			}
-			if (board[v - 1][h + 1] == '*') {
-				number++;
+			if (board[v - 1][h + 1] != '*') {
+				number--;
 			}
 		}
 		// Top row
-		if (v == 0 && h > 0 && h < board.length) {
-			number = 4;
+		if (v == 0 && h > 0 && h < board.length-1) {
+			number = 0;
 			for (int y = 0; y <= 1; y++) {
-				for (int x = (h - 1); x < (h + 1); x++) {
-					if (board[y][x] != '*') {
-						number--;
+				for (int x = (h - 1); x <= (h + 1); x++) {
+					if (board[y][x] == '*') {
+						number++;
 					}
 				}
 
@@ -157,12 +164,12 @@ public class HiddenMinefield {
 
 		}
 		// Bottom row
-		if (v == board[v].length - 1 && h > 0 && h < board.length) {
-			number = 4;
+		if (v == board[v].length - 1 && h > 0 && h < board.length-1) {
+			number = 0;
 			for (int y = board[v].length - 2; y < board[v].length; y++) {
-				for (int x = (h - 1); x < (h + 1); x++) {
-					if (board[y][x] != '*') {
-						number--;
+				for (int x = (h - 1); x <= (h + 1); x++) {
+					if (board[y][x] == '*') {
+						number++;
 					}
 				}
 
@@ -182,7 +189,7 @@ public class HiddenMinefield {
 			}
 
 		}
-		// Leftmost row
+		// Rightmost row
 		if (v < board[v].length - 1 && h == board.length-1 && v > 0) {
 			number = 6;
 			for (int y = v - 1; y <= v + 1; y++) {
@@ -198,11 +205,6 @@ public class HiddenMinefield {
 		return number;
 	}
 
-	public boolean checkCell(int y, int x) {
-		if (board[y][x] == '*') {
-			return true;
-		}
-		return false;
-	}
+	
 
 }
