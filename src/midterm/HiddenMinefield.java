@@ -93,15 +93,15 @@ public class HiddenMinefield {
 		}
 		// Top left corner
 		if (v == 0 && h == 0) {
-			number = 2;
+			number = 0;
 			if (board[v][h + 1] == '*') {
-				number--;
+				number++;
 			}
 			if (board[v + 1][h] == '*') {
-				number--;
+				number++;
 			}
 			if (board[v + 1][h + 1] == '*') {
-				number--;
+				number++;
 			}
 		}
 		// Top right corner
@@ -131,16 +131,16 @@ public class HiddenMinefield {
 			}
 		}
 		// Bottom left corner
-		if (v == board[v].length && h == 0) {
-			number = 3;
+		if (v == board[v].length-1 && h == 0) {
+			number = 0;
 			if (board[v][h + 1] == '*') {
-				number--;
+				number++;
 			}
 			if (board[v - 1][h] == '*') {
-				number--;
+				number++;
 			}
 			if (board[v - 1][h + 1] == '*') {
-				number--;
+				number++;
 			}
 		}
 		// Top row
