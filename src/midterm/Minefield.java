@@ -16,6 +16,22 @@ public class Minefield {
 		this.noOfMines = noOfMines;
 	}
 	
+	public void playerMove(int v, int h, HiddenMinefield hiddenBoard){
+		if (hiddenBoard.board[v][h].getState()==CellState.BLANK){
+			board[v+1][h+1] = ' ';
+			hiddenBoard.board[v][h].setAsJustRevealed();
+		}
+		if (hiddenBoard.board[v][h].getState()==CellState.NUMBER){
+			board[v+1][h+1] = (char) (hiddenBoard.checkSurrounding(v, h)+48);
+			hiddenBoard.board[v][h].setAsRevealed();
+		}
+		if (hiddenBoard.board[v][h].getState()==CellState.MINE){
+			board[v+1][h+1] = '*';
+		}
+		
+		
+	}
+	
 	public void generateInitialBoard() {
 		//Generates horizontal coordinate reference
 		for (int i = 1; i<board[0].length; i++){

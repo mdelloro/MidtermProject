@@ -6,6 +6,7 @@ public class Cell {
 		private Choosable isRevealed;
 		private Flagged flag;
 		int[] position = {0,0};
+		char stateDisplay;
 		
 		public Cell(int v, int h){
 			position[0] = v;
@@ -14,20 +15,23 @@ public class Cell {
 			flag = Flagged.NOT_FLAGGED;
 		}
 		
-		public void setAsMine(int v, int h){
+		public void setAsMine(){
 			state = CellState.MINE;
+			stateDisplay = '*';
 			
 		}
 		
-		public void setAsNumber(int v, int h){
+		public void setAsNumber(int i){
 			state = CellState.NUMBER;
+			stateDisplay = (char)(i+48);
 		}
 		
-		public void setAsBlank(int v, int h){
+		public void setAsBlank(){
 			state = CellState.BLANK;
+			stateDisplay = ' ';
 		}
 		
-		public CellState getState(int v, int h){
+		public CellState getState(){
 			return state;
 		}
 		
@@ -37,7 +41,7 @@ public class Cell {
 			flag = Flagged.FLAGGED;
 		}
 		
-		public Flagged getFlagState(int v, int h){
+		public Flagged getFlagState(){
 			return flag;
 		}
 		
@@ -49,7 +53,7 @@ public class Cell {
 			isRevealed = Choosable.JUST_REVEALED;
 		}
 		
-		public Choosable getChoosableState(int v, int h){
+		public Choosable getChoosableState(){
 			return isRevealed;
 		}
 }
