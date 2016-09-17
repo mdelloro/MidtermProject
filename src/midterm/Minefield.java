@@ -9,7 +9,7 @@ public class Minefield {
 	private int noOfMines = 0;
 	Random rdm = new Random();
 	
-	public Minefield(int h, int v) {
+	public Minefield(int v, int h) {
 		board = new char[v][h];
 		boardSizeH = h;
 		boardSizeV = v;
@@ -18,7 +18,7 @@ public class Minefield {
 	
 	public void generateInitialBoard() {
 		//Generates horizontal coordinate reference
-		for (int i = 1; i<board.length; i++){
+		for (int i = 1; i<board[0].length; i++){
 			if ((i+64) > 90 && (i+64) < 97){
 				board[0][i] = (char)(i+70);
 			}else{

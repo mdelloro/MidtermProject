@@ -9,15 +9,15 @@ public class HiddenMinefield {
 	private int noOfMines = 0;
 	Random rdm = new Random();
 
-	public HiddenMinefield(int h, int v, int noOfMines) {
+	public HiddenMinefield(int v, int h, int noOfMines) {
 		board = new char[v][h];
 		hiddenBoardSizeH = h;
 		hiddenBoardSizeV = v;
 		this.noOfMines = noOfMines;
 	}
 	
-	public boolean checkCell(int x, int y) {
-		if (board[y][x] == '*') {
+	public boolean checkCell(int v, int h) {
+		if (board[v][h] == '*') {
 			return true;
 		}
 		return false;
@@ -30,7 +30,7 @@ public class HiddenMinefield {
 		while (mineAmount != 0) {
 			h = rdm.nextInt(hiddenBoardSizeH);
 			v = rdm.nextInt(hiddenBoardSizeV);
-			if (checkCell(h, v) == false) {
+			if (checkCell(v, h) == false) {
 				board[v][h] = '*';
 				mineAmount--;
 			} else {
@@ -62,7 +62,7 @@ public class HiddenMinefield {
 		for (int vv = 0; vv < board.length; vv++) {
 			for (int hh = 0; hh < board[vv].length; hh++) {
 				if (board[vv][hh] != '*') {
-					board[vv][hh] = (char) (checkSurrounding(hh, vv) + 48);
+					board[vv][hh] = (char) (checkSurrounding(vv, hh) + 48);
 					if (board[vv][hh] == '0') {
 						board[vv][hh] = ' ';
 					}
@@ -82,16 +82,14 @@ public class HiddenMinefield {
 		}
 	}
 
-	public int checkSurrounding(int h, int v) {
-		int number = 9;
-		int hh = h - 1;
-		int vv = v - 1;
+	public int checkSurrounding(int v, int h) {
+		int number = 0;
 		// No borders
-		if (vv >= 0 && (vv + 2) < board[v].length && hh >= 0 && (hh + 2) < board.length) {
-			for (int y = vv; y <= (v + 1); y++) {
-				for (int x = hh; x <= (h + 1); x++) {
-					if (board[y][x] != '*') {
-						number--;
+		if (v-1 >= 0 && (v + 1) < board.length && h-1 >= 0 && (h+1) < board[v].length) {
+			for (int y = v-1; y <= (v + 1); y++) {
+				for (int x = h-1; x <= (h + 1); x++) {
+					if (board[y][x] == '*') {
+						number++;
 					}
 				}
 
@@ -112,7 +110,7 @@ public class HiddenMinefield {
 			}
 		}
 		// Top right corner
-		if (v == 0 && h == board.length-1) {
+		if (v == 0 && h == board[v].length-1) {
 			number = 3;
 			if (board[v][h - 1] != '*') {
 				number--;
@@ -125,7 +123,7 @@ public class HiddenMinefield {
 			}
 		}
 		// Bottom right corner
-		if (v == board[v].length-1 && h == board.length-1) {
+		if (v == board.length-1 && h == board[v].length-1) {
 			number = 3;
 			if (board[v][h - 1] != '*') {
 				number--;
@@ -138,7 +136,7 @@ public class HiddenMinefield {
 			}
 		}
 		// Bottom left corner
-		if (v == board[v].length-1 && h == 0) {
+		if (v == board.length-1 && h == 0) {
 			number = 3;
 			if (board[v][h + 1] != '*') {
 				number--;
@@ -151,7 +149,7 @@ public class HiddenMinefield {
 			}
 		}
 		// Top row
-		if (v == 0 && h > 0 && h < board.length-1) {
+		if (v == 0 && h > 0 && h < board[v].length-1) {
 			number = 0;
 			for (int y = 0; y <= 1; y++) {
 				for (int x = (h - 1); x <= (h + 1); x++) {
@@ -164,9 +162,9 @@ public class HiddenMinefield {
 
 		}
 		// Bottom row
-		if (v == board[v].length - 1 && h > 0 && h < board.length-1) {
+		if (v == board.length-1 && h > 0 && h < board[v].length-1) {
 			number = 0;
-			for (int y = board[v].length - 2; y < board[v].length; y++) {
+			for (int y = board.length - 2; y < board.length; y++) {
 				for (int x = (h - 1); x <= (h + 1); x++) {
 					if (board[y][x] == '*') {
 						number++;
@@ -177,7 +175,7 @@ public class HiddenMinefield {
 
 		}
 		// Leftmost row
-		if (v < board[v].length - 1 && h == 0 && v > 0) {
+		if (v < board.length - 1 && v > 0 && h == 0) {
 			number = 6;
 			for (int y = v - 1; y <= v + 1; y++) {
 				for (int x = 0; x <= 1; x++) {
@@ -190,12 +188,12 @@ public class HiddenMinefield {
 
 		}
 		// Rightmost row
-		if (v < board[v].length - 1 && h == board.length-1 && v > 0) {
-			number = 6;
+		if (v < board.length - 1 && v > 0 && h == board[v].length-1) {
+			number = 0;
 			for (int y = v - 1; y <= v + 1; y++) {
-				for (int x = board.length-2; x < board.length; x++) {
-					if (board[y][x] != '*') {
-						number--;
+				for (int x = board[v].length-2; x < board[v].length; x++) {
+					if (board[y][x] == '*') {
+						number++;
 					}
 				}
 
