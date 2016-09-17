@@ -15,23 +15,23 @@ public class Minefield {
 		boardSizeV = v;
 		this.noOfMines = noOfMines;
 	}
-	
+	//Checks the move entered by the player and sets the visible board to that value.
 	public void playerMove(int v, int h, HiddenMinefield hiddenBoard){
 		if (hiddenBoard.board[v][h].getState()==CellState.BLANK){
-			board[v+1][h+1] = ' ';
+			board[v+1][h+1] = hiddenBoard.board[v][h].stateDisplay;
 			hiddenBoard.board[v][h].setAsJustRevealed();
 		}
 		if (hiddenBoard.board[v][h].getState()==CellState.NUMBER){
-			board[v+1][h+1] = (char) (hiddenBoard.checkSurrounding(v, h)+48);
+			board[v+1][h+1] = hiddenBoard.board[v][h].stateDisplay;
 			hiddenBoard.board[v][h].setAsRevealed();
 		}
 		if (hiddenBoard.board[v][h].getState()==CellState.MINE){
-			board[v+1][h+1] = '*';
+			board[v+1][h+1] = hiddenBoard.board[v][h].stateDisplay;
 		}
 		
 		
 	}
-	
+	//Creates visible board and fills each index of the array with an equals sign, as well as the coordinates on the edges.
 	public void generateInitialBoard() {
 		//Generates horizontal coordinate reference
 		for (int i = 1; i<board[0].length; i++){
@@ -56,6 +56,7 @@ public class Minefield {
 		}
 
 	}
+	//Displays visible board.
 	public void displayBoard() {
 		for (int v = 0; v < board.length; v++) {
 			for (int h = 0; h < board[v].length; h++) {
