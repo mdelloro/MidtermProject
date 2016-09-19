@@ -71,6 +71,7 @@ public class HiddenMinefield {
 					board[vv][hh].setAsNumber(checkSurrounding(vv, hh));
 					if (board[vv][hh].stateDisplay == '0') {
 						board[vv][hh].stateDisplay = ' ';
+						board[vv][hh].setAsBlank();
 					}
 					
 				}
@@ -106,7 +107,7 @@ public class HiddenMinefield {
 					if (board[y][x].stateDisplay == '*') {
 						number++;
 					}
-//					if(board[y][x].stateDisplay == ' '){
+//					if(board[y][x].getState() == CellState.BLANK){
 //						board[y][x].setAsJustRevealed();
 //					}
 					
@@ -127,6 +128,7 @@ public class HiddenMinefield {
 			if (board[v + 1][h + 1].stateDisplay != '*') {
 				number--;
 			}
+
 		}
 		// Top right corner
 		if (v == 0 && h == board[v].length-1) {
@@ -219,7 +221,7 @@ public class HiddenMinefield {
 			}
 
 		}
-		board[v][h].setAsRevealed();
+//		board[v][h].setAsRevealed();
 		return number;
 	}
 	public void checkForJustRevealed(){

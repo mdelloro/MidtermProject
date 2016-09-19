@@ -83,16 +83,14 @@ public class MinesweeperApp {
 		displayBoard.displayBoard();
 
 		while (true) {
+			v = verticalCoordinate(scanner, hiddenBoard);
+			
+			h = horizontalCoordinate(scanner, hiddenBoard);
 			if (hiddenBoard.checkCell(v, h)) {
 				hiddenBoard.displayBoard();
 				break;
 			}
-			v = verticalCoordinate(scanner, hiddenBoard);
-			
-			h = horizontalCoordinate(scanner, hiddenBoard);
-
 			displayBoard.playerMove(v, h, hiddenBoard);
-			
 			hiddenBoard.checkForJustRevealed();
 			displayBoard.revealedCells(hiddenBoard);
 			displayBoard.displayBoard();
