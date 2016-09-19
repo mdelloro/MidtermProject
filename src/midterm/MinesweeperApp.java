@@ -45,7 +45,6 @@ public class MinesweeperApp {
 				skill = SkillLevel.BEGINNER;
 				skillquestion = false;
 				hiddenBoard = new HiddenMinefield(8, 8, 15);
-				hiddenBoard.placeMines(8, 8);
 				displayBoard = new Minefield(9, 9);
 				displayBoard.displayBoard();
 
@@ -55,8 +54,7 @@ public class MinesweeperApp {
 
 				skill = SkillLevel.INTERMEDIATE;
 				skillquestion = false;
-				hiddenBoard = new HiddenMinefield(15, 15, 50);
-				hiddenBoard.placeMines(15, 15);
+				hiddenBoard = new HiddenMinefield(15, 15, 25);
 				displayBoard = new Minefield(16, 16);
 				displayBoard.displayBoard();
 
@@ -80,6 +78,8 @@ public class MinesweeperApp {
 		hiddenBoard.placeMines(v, h);
 		hiddenBoard.setNumbers();
 		displayBoard.playerMove(v, h, hiddenBoard);
+		hiddenBoard.checkForJustRevealed();
+		displayBoard.revealedCells(hiddenBoard);
 		displayBoard.displayBoard();
 
 		while (true) {

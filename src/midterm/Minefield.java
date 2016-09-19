@@ -21,14 +21,13 @@ public class Minefield {
 		if (hiddenBoard.board[v][h].getState()==CellState.BLANK){
 			board[v+1][h+1] = hiddenBoard.board[v][h].stateDisplay;
 			hiddenBoard.board[v][h].setAsJustRevealed();
+			hiddenBoard.checkSurrounding(v, h);
 		}
 		if (hiddenBoard.board[v][h].getState()==CellState.NUMBER){
 			board[v+1][h+1] = hiddenBoard.board[v][h].stateDisplay;
 			hiddenBoard.board[v][h].setAsRevealed();
 		}
-		if (hiddenBoard.board[v][h].getState()==CellState.MINE){
-			board[v+1][h+1] = hiddenBoard.board[v][h].stateDisplay;
-		}
+
 		
 		
 	}

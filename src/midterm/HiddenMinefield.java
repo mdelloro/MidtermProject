@@ -72,6 +72,7 @@ public class HiddenMinefield {
 					if (board[vv][hh].stateDisplay == '0') {
 						board[vv][hh].stateDisplay = ' ';
 					}
+					
 				}
 			}
 		}
@@ -105,14 +106,14 @@ public class HiddenMinefield {
 					if (board[y][x].stateDisplay == '*') {
 						number++;
 					}
-					if(board[y][x].stateDisplay == ' '){
-						board[y][x].setAsJustRevealed();
-					}
+//					if(board[y][x].stateDisplay == ' '){
+//						board[y][x].setAsJustRevealed();
+//					}
 					
 				}
-				board[v][h].setAsRevealed();
+			
 			}
-
+			
 		}
 		// Top left corner
 		if (v == 0 && h == 0) {
@@ -218,6 +219,7 @@ public class HiddenMinefield {
 			}
 
 		}
+		board[v][h].setAsRevealed();
 		return number;
 	}
 	public void checkForJustRevealed(){
