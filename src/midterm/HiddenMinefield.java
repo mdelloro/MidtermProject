@@ -106,11 +106,11 @@ public class HiddenMinefield {
 						number++;
 					}
 					if(board[y][x].stateDisplay == ' '){
-						board[v][h].setAsJustRevealed();
+						board[y][x].setAsJustRevealed();
 					}
-					//board[v][h].setAsRevealed();
+					
 				}
-
+				board[v][h].setAsRevealed();
 			}
 
 		}
@@ -219,6 +219,30 @@ public class HiddenMinefield {
 
 		}
 		return number;
+	}
+	public void checkForJustRevealed(){
+		int objectCount = 1;
+		while(objectCount != 0){
+		for (int v = 0; v < board.length; v++) {
+			for (int h = 0; h < board[0].length; h++) {
+				if(board[v][h].getChoosableState()==Choosable.JUST_REVEALED ){
+					checkSurrounding(v,h);
+				}
+					
+			}
+			
+		}	objectCount = 0;
+		
+			for (int v = 0; v < board.length; v++) {
+				for (int h = 0; h < board[0].length; h++) {
+					if(board[v][h].getChoosableState()==Choosable . JUST_REVEALED ){
+						objectCount++;
+					}
+						
+				}
+			}
+	
+		}
 	}
 
 	

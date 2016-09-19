@@ -14,6 +14,7 @@ public class Minefield {
 		boardSizeH = h;
 		boardSizeV = v;
 		this.noOfMines = noOfMines;
+		generateInitialBoard();
 	}
 	//Checks the move entered by the player and sets the visible board to that value.
 	public void playerMove(int v, int h, HiddenMinefield hiddenBoard){
@@ -66,5 +67,22 @@ public class Minefield {
 			System.out.println();
 		}
 	}
+	
+	public void revealedCells(HiddenMinefield hiddenBoard){
+		for (int v = 0; v < hiddenBoard.board.length; v++) {
+			for (int h = 0; h < hiddenBoard.board[v].length; h++) {
+				if(hiddenBoard.board[v][h].getChoosableState() == Choosable.REVEALED){
+					board[v+1][h+1]=hiddenBoard.board[v][h].stateDisplay;
+				}
+			}
+		}
+				
+				
+		
+		
+		
+		
+	}
 
+	
 }
