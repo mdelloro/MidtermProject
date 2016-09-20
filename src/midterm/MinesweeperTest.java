@@ -35,6 +35,21 @@ public class MinesweeperTest {
 		test2.playerMove(5,5, test);
 		Assert.assertEquals(CellState.MINE, test.board[5][5].getState());
 	}
+	@Test
+	public void testAnotherMethod(){
+		HiddenMinefield test = new HiddenMinefield(10, 10, 99);
+			test.board[2][2].setAsMine();
+			test.board[2][3].setAsMine();
+			test.board[2][4].setAsMine();
+			test.setNumbers();
+			Assert.assertEquals('2',test.board[1][2].stateDisplay);
+			
+		}
+		
+	
+	
+	
 	}
+	
 
 
