@@ -38,10 +38,12 @@ public class MinesweeperApp {
 		System.out.println("********************************************************************************");
 
 		while (userprompt.equalsIgnoreCase("y")) {
-			System.out.println(
-					"What level of skill would you like to play?\n(Beginner)\n(Intermediate)\n(Expert)\n(Custom)");
-			String response = scanner.next().toLowerCase();
+
 			while (skillquestion == true) {
+				System.out.println(
+						"What level of skill would you like to play?\n(Beginner)\n(Intermediate)\n(Expert)\n(Custom)");
+				String response = scanner.next().toLowerCase();
+				scanner.nextLine();
 				switch (response) {
 				case "beginner":
 					skill = SkillLevel.BEGINNER;
@@ -49,17 +51,17 @@ public class MinesweeperApp {
 					hiddenBoard = new HiddenMinefield(8, 8, 12);
 					displayBoard = new Minefield(9, 9);
 					displayBoard.displayBoard();
-					scanner.nextLine();
+					// scanner.nextLine();
 					break;
 
 				case "intermediate":
 
 					skill = SkillLevel.INTERMEDIATE;
 					skillquestion = false;
-					hiddenBoard = new HiddenMinefield(15, 15, 25);
+					hiddenBoard = new HiddenMinefield(15, 15, 45);
 					displayBoard = new Minefield(16, 16);
 					displayBoard.displayBoard();
-					scanner.nextLine();
+					// scanner.nextLine();
 					break;
 
 				case "expert":
@@ -68,19 +70,34 @@ public class MinesweeperApp {
 					hiddenBoard = new HiddenMinefield(16, 30, 99);
 					displayBoard = new Minefield(17, 31);
 					displayBoard.displayBoard();
-					scanner.nextLine();
+					// scanner.nextLine();
 					break;
 				case "custom":
-					scanner.nextLine();
 					skill = SkillLevel.CUSTOM;
 					skillquestion = false;
-					System.out.println("How wide do you want the field to be?");
-					h = scanner.nextInt();
-					System.out.println("How tall do you want the field to be?");
-					v = scanner.nextInt();
-					System.out.println("How many mines do you want in the field?");
-					mines = scanner.nextInt();
-					scanner.nextLine();
+					while (true) {
+						System.out.println("How wide do you want the field to be?");
+						h = scanner.nextInt();
+						if (h>30) {
+							System.out.println("Please choose a number 30 or lower.");
+							continue;
+						}
+						System.out.println("How tall do you want the field to be?");
+						v = scanner.nextInt();
+						if (v>30) {
+							System.out.println("Please choose a number 30 or lower.");
+							continue;
+						}
+						System.out.println("How many mines do you want in the field?");
+						mines = scanner.nextInt();
+						
+						if ((double) mines > ((double) h * (double) v * .75)) {
+							System.out.println("Please choose a lower number of mines.");
+							continue;
+						}
+						break;
+					}
+					// scanner.nextLine();
 					hiddenBoard = new HiddenMinefield(v, h, mines);
 					displayBoard = new Minefield(v + 1, h + 1);
 					displayBoard.displayBoard();
@@ -88,7 +105,6 @@ public class MinesweeperApp {
 
 				default:
 					System.out.println("Invalid choice please choose again from the options listed.");
-					scanner.nextLine();
 				}
 			}
 			v = verticalCoordinate(scanner, hiddenBoard, displayBoard);
@@ -136,11 +152,10 @@ public class MinesweeperApp {
 		int v = 0;
 		int h = 0;
 		while (true) {
-			
-			
+
 			System.out.println("Please enter your vertical coordinate");
 			vchar = scanner.next().charAt(0);
-			if (vchar == '!'){
+			if (vchar == '!') {
 				System.out.println("Flag a mine");
 				v = verticalCoordinate(scanner, hiddenBoard, displayBoard);
 				h = horizontalCoordinate(scanner, hiddenBoard);
@@ -149,16 +164,16 @@ public class MinesweeperApp {
 				displayBoard.displayBoard();
 				continue;
 			}
-			if (vchar == '~'){
+			if (vchar == '~') {
 				System.out.println("Flag a mine");
 				v = verticalCoordinate(scanner, hiddenBoard, displayBoard);
 				h = horizontalCoordinate(scanner, hiddenBoard);
 				hiddenBoard.board[v][h].unsetFlag();
-				displayBoard.board[v+1][h+1] = '=';
+				displayBoard.board[v + 1][h + 1] = '=';
 				displayBoard.displayBoard();
-				
+
 			}
-			
+
 			if (vchar >= 'A' && vchar <= 'Z') {
 				if (vchar >= hiddenBoard.board.length + 65) {
 					System.out.println("Does not exist in board!");
