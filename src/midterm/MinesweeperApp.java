@@ -46,7 +46,7 @@ public class MinesweeperApp {
 				case "beginner":
 					skill = SkillLevel.BEGINNER;
 					skillquestion = false;
-					hiddenBoard = new HiddenMinefield(8, 8, 15);
+					hiddenBoard = new HiddenMinefield(8, 8, 12);
 					displayBoard = new Minefield(9, 9);
 					displayBoard.displayBoard();
 					scanner.nextLine();
@@ -91,7 +91,7 @@ public class MinesweeperApp {
 					scanner.nextLine();
 				}
 			}
-			v = verticalCoordinate(scanner, hiddenBoard);
+			v = verticalCoordinate(scanner, hiddenBoard, displayBoard);
 			h = horizontalCoordinate(scanner, hiddenBoard);
 			hiddenBoard.placeMines(v, h);
 			hiddenBoard.setNumbers();
@@ -101,8 +101,8 @@ public class MinesweeperApp {
 			displayBoard.displayBoard();
 
 			while (true) {
-
-				if (hiddenBoard.checkCell(v, h)) {
+				System.out.println("Enter a ! to flag a mine and ~ to unflag it.");
+				if (hiddenBoard.checkCell(v, h) && !hiddenBoard.board[v][h].isFlagged()) {
 					displayBoard.revealBoard(hiddenBoard);
 					displayBoard.displayBoard();
 					System.out.println("You lose!");
@@ -112,7 +112,7 @@ public class MinesweeperApp {
 					System.out.println("You won!");
 					break;
 				}
-				v = verticalCoordinate(scanner, hiddenBoard);
+				v = verticalCoordinate(scanner, hiddenBoard, displayBoard);
 				h = horizontalCoordinate(scanner, hiddenBoard);
 				displayBoard.playerMove(v, h, hiddenBoard);
 				hiddenBoard.checkForJustRevealed();
@@ -131,13 +131,34 @@ public class MinesweeperApp {
 		scanner.close();
 	}
 
-	public static int verticalCoordinate(Scanner scanner, HiddenMinefield hiddenBoard) {
+	public static int verticalCoordinate(Scanner scanner, HiddenMinefield hiddenBoard, Minefield displayBoard) {
 		char vchar = 0;
 		int v = 0;
-
+		int h = 0;
 		while (true) {
+			
+			
 			System.out.println("Please enter your vertical coordinate");
 			vchar = scanner.next().charAt(0);
+			if (vchar == '!'){
+				System.out.println("Flag a mine");
+				v = verticalCoordinate(scanner, hiddenBoard, displayBoard);
+				h = horizontalCoordinate(scanner, hiddenBoard);
+				hiddenBoard.board[v][h].setFlag();
+				displayBoard.changeToFlag(v, h);
+				displayBoard.displayBoard();
+				continue;
+			}
+			if (vchar == '~'){
+				System.out.println("Flag a mine");
+				v = verticalCoordinate(scanner, hiddenBoard, displayBoard);
+				h = horizontalCoordinate(scanner, hiddenBoard);
+				hiddenBoard.board[v][h].unsetFlag();
+				displayBoard.board[v+1][h+1] = '=';
+				displayBoard.displayBoard();
+				
+			}
+			
 			if (vchar >= 'A' && vchar <= 'Z') {
 				if (vchar >= hiddenBoard.board.length + 65) {
 					System.out.println("Does not exist in board!");

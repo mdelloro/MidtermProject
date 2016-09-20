@@ -40,9 +40,15 @@ public class Cell {
 		public void setFlag(){
 			flag = Flagged.FLAGGED;
 		}
+		public void unsetFlag(){
+			flag = Flagged.NOT_FLAGGED;
+		}
 		
-		public Flagged getFlagState(){
-			return flag;
+		public boolean isFlagged(){
+			if (flag == Flagged.FLAGGED){
+				return true;
+			}
+			return false;
 		}
 		
 		public void setAsRevealed(){

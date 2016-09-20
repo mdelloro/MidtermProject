@@ -16,8 +16,21 @@ public class Minefield {
 		this.noOfMines = noOfMines;
 		generateInitialBoard();
 	}
+	
+	public void changeToFlag(int v, int h){
+		board[v+1][h+1] = '!';
+	}
+	
 	//Checks the move entered by the player and sets the visible board to that value.
 	public void playerMove(int v, int h, HiddenMinefield hiddenBoard){
+		
+		if(hiddenBoard.board[v][h].isFlagged()){
+			System.out.println("---------------------------------------------------");
+			System.out.println("-------Cell is flagged and cannot be chosen.-------");
+			System.out.println("---------------------------------------------------");
+			return;
+		}
+		
 		if (hiddenBoard.board[v][h].getState()==CellState.BLANK){
 			board[v+1][h+1] = hiddenBoard.board[v][h].stateDisplay;
 			hiddenBoard.board[v][h].setAsJustRevealed();
