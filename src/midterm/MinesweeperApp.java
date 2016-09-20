@@ -37,7 +37,7 @@ public class MinesweeperApp {
 		System.out.println("********************************************************************************");
 		System.out.println("********************************************************************************");
 
-		System.out.println("What level of skill would you like to play?\n(Beginner)\n(Intermediate)\n(Expert)");
+		System.out.println("What level of skill would you like to play?\n(Beginner)\n(Intermediate)\n(Expert)\n(Custom)");
 		String response = scanner.nextLine().toLowerCase();
 		while (skillquestion == true) {
 			switch (response) {
@@ -68,6 +68,21 @@ public class MinesweeperApp {
 				displayBoard.displayBoard();
 
 				break;
+			case "custom":
+				skill = SkillLevel.CUSTOM;
+				skillquestion = false;
+				System.out.println("How wide do you want the field to be?");
+				h = scanner.nextInt();
+				System.out.println("How tall do you want the field to be?");
+				v = scanner.nextInt();
+				System.out.println("How many mines do you want in the field?");
+				mines = scanner.nextInt();
+				scanner.nextLine();
+				hiddenBoard = new HiddenMinefield(v, h, mines);
+				displayBoard = new Minefield(v+1, h+1);
+				displayBoard.displayBoard();
+				break;
+				
 			default:
 				System.out.println("Invalid choice please choose again from the options listed. ");
 				scanner.nextLine();

@@ -1,7 +1,7 @@
 package midterm;
 
 public enum SkillLevel {
-	BEGINNER,INTERMEDIATE,EXPERT
+	BEGINNER,INTERMEDIATE,EXPERT, CUSTOM
 
 	
 }
