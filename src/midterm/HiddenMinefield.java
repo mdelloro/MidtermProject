@@ -50,7 +50,6 @@ public class HiddenMinefield {
 				}
 			}
 		}
-		System.out.println(mines);
 	}
 	//Creates board with provided size and fills each with a new Cell object.
 	public void generateInitialBoard() {
@@ -60,6 +59,26 @@ public class HiddenMinefield {
 			}
 		}
 
+	}
+	
+	public boolean checkForWin(){
+		boolean didWin;
+		int counter=0;
+		for (int v = 0; v < board.length; v++) {
+			for (int h = 0; h < board[v].length; h++) {
+				if(board[v][h].getChoosableState() == Choosable.NOT_REVEALED && board[v][h].getState() != CellState.MINE){
+					counter++;
+				}
+			}
+		}
+		
+		if (counter > 0){
+			didWin = false;
+		}else {
+			didWin=true;
+		}
+		
+		return didWin;
 	}
 	//For cells that aren't a mine, this method sets the corresponding value to the cell
 	public void setNumbers() {
