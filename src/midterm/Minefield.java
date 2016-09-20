@@ -74,14 +74,14 @@ public class Minefield {
 					board[v+1][h+1]=hiddenBoard.board[v][h].stateDisplay;
 				}
 			}
-		}
-				
-				
-		
-		
-		
-		
+		}	
 	}
 
-	
+	public void revealBoard(HiddenMinefield hiddenBoard){
+		for (int v = 0; v < hiddenBoard.board.length; v++) {
+			for (int h = 0; h < hiddenBoard.board[v].length; h++) {
+				board[v+1][h+1]=hiddenBoard.board[v][h].stateDisplay;
+			}
+		}	
+	}
 }
