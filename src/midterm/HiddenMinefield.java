@@ -50,6 +50,8 @@ public class HiddenMinefield {
 				}
 			}
 		}
+
+	
 	}
 	//Creates board with provided size and fills each with a new Cell object.
 	public void generateInitialBoard() {
