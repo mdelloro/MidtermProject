@@ -230,7 +230,8 @@ public class HiddenMinefield {
 		for (int v = 0; v < board.length; v++) {
 			for (int h = 0; h < board[0].length; h++) {
 				if(board[v][h].getChoosableState()==Choosable.JUST_REVEALED ){
-					checkSurrounding(v,h);
+					checkForNearbyBlanks(v,h);
+					checkForNearbyNumbers(v,h);
 				}
 					
 			}
@@ -239,7 +240,7 @@ public class HiddenMinefield {
 		
 			for (int v = 0; v < board.length; v++) {
 				for (int h = 0; h < board[0].length; h++) {
-					if(board[v][h].getChoosableState()==Choosable . JUST_REVEALED ){
+					if(board[v][h].getChoosableState()==Choosable.JUST_REVEALED ){
 						objectCount++;
 					}
 						
@@ -247,8 +248,242 @@ public class HiddenMinefield {
 			}
 	
 		}
+		
+		
 	}
+	public void checkForNearbyBlanks(int v, int h) {
+		// No borders
+		if (v-1 >= 0 && (v + 1) < board.length && h-1 >= 0 && (h+1) < board[v].length) {
+			for (int y = v-1; y <= (v + 1); y++) {
+				for (int x = h-1; x <= (h + 1); x++) {
+					if (board[y][x].getState() == CellState.BLANK && board[y][x].getChoosableState() != Choosable.REVEALED) {
+						board[y][x].setAsJustRevealed();
+					}
+					
+				}
+			
+			}
+			
+		}
+		// Top left corner
+		if (v == 0 && h == 0) {
+			
+			if (board[v][h + 1].getState() == CellState.BLANK && board[v][h+1].getChoosableState() != Choosable.REVEALED) {
+				board[v][h + 1].setAsJustRevealed();
+			}
+			if (board[v + 1][h].getState() == CellState.BLANK && board[v+1][h].getChoosableState() != Choosable.REVEALED) {
+				board[v + 1][h].setAsJustRevealed();
+			}
+			if (board[v + 1][h + 1].getState() == CellState.BLANK && board[v+1][h+1].getChoosableState() != Choosable.REVEALED) {
+				board[v + 1][h + 1].setAsJustRevealed();
+			}
 
-	
+		}
+		// Top right corner
+		if (v == 0 && h == board[v].length-1) {
+			
+			if (board[v][h - 1].getState() == CellState.BLANK && board[v][h - 1].getChoosableState() != Choosable.REVEALED) {
+				board[v][h - 1].setAsJustRevealed();
+			}
+			if (board[v + 1][h].getState() == CellState.BLANK&& board[v+1][h].getChoosableState() != Choosable.REVEALED) {
+				board[v + 1][h].setAsJustRevealed();
+			}
+			if (board[v + 1][h - 1].getState() == CellState.BLANK && board[v+1][h-1].getChoosableState() != Choosable.REVEALED) {
+				board[v + 1][h - 1].setAsJustRevealed();
+			}
+		}
+		// Bottom right corner
+		if (v == board.length-1 && h == board[v].length-1) {
+			
+			if (board[v][h - 1].getState() == CellState.BLANK && board[v][h-1].getChoosableState() != Choosable.REVEALED) {
+				board[v][h - 1].setAsJustRevealed();
+			}
+			if (board[v - 1][h].getState() == CellState.BLANK && board[v-1][h].getChoosableState() != Choosable.REVEALED) {
+				board[v - 1][h].setAsJustRevealed();
+			}
+			if (board[v - 1][h - 1].getState() == CellState.BLANK && board[v-1][h-1].getChoosableState() != Choosable.REVEALED) {
+				board[v - 1][h - 1].setAsJustRevealed();
+			}
+		}
+		// Bottom left corner
+		if (v == board.length-1 && h == 0) {
+			
+			if (board[v][h + 1].getState() == CellState.BLANK && board[v][h+1].getChoosableState() != Choosable.REVEALED) {
+				board[v][h + 1].setAsJustRevealed();
+			}
+			if (board[v - 1][h].getState() == CellState.BLANK && board[v-1][h].getChoosableState() != Choosable.REVEALED) {
+				board[v - 1][h].setAsJustRevealed();
+			}
+			if (board[v - 1][h + 1].getState() == CellState.BLANK && board[v-1][h+1].getChoosableState() != Choosable.REVEALED) {
+				board[v - 1][h + 1].setAsJustRevealed();
+			}
+		}
+		// Top row
+		if (v == 0 && h > 0 && h < board[v].length-1) {
+			for (int y = 0; y <= 1; y++) {
+				for (int x = (h - 1); x <= (h + 1); x++) {
+					if (board[y][x].getState() == CellState.BLANK && board[y][x].getChoosableState() != Choosable.REVEALED) {
+						board[y][x].setAsJustRevealed();
+					}
+				}
+
+			}
+
+		}
+		// Bottom row
+		if (v == board.length-1 && h > 0 && h < board[v].length-1) {
+			for (int y = board.length - 2; y < board.length; y++) {
+				for (int x = (h - 1); x <= (h + 1); x++) {
+					if (board[y][x].getState() == CellState.BLANK && board[y][x].getChoosableState() != Choosable.REVEALED) {
+						board[y][x].setAsJustRevealed();
+					}
+				}
+
+			}
+
+		}
+		// Leftmost row
+		if (v < board.length - 1 && v > 0 && h == 0) {
+			for (int y = v - 1; y <= v + 1; y++) {
+				for (int x = 0; x <= 1; x++) {
+					if (board[y][x].getState() == CellState.BLANK && board[y][x].getChoosableState() != Choosable.REVEALED) {
+						board[y][x].setAsJustRevealed();
+					}
+				}
+
+			}
+
+		}
+		// Rightmost row
+		if (v < board.length - 1 && v > 0 && h == board[v].length-1) {
+			for (int y = v - 1; y <= v + 1; y++) {
+				for (int x = board[v].length-2; x < board[v].length; x++) {
+					if (board[y][x].getState() == CellState.BLANK && board[y][x].getChoosableState() != Choosable.REVEALED) {
+						board[y][x].setAsJustRevealed();
+					}
+				}
+
+			}
+
+		}
+		board[v][h].setAsRevealed();
+	}
+	public void checkForNearbyNumbers(int v, int h) {
+		// No borders
+		if (v-1 >= 0 && (v + 1) < board.length && h-1 >= 0 && (h+1) < board[v].length) {
+			for (int y = v-1; y <= (v + 1); y++) {
+				for (int x = h-1; x <= (h + 1); x++) {
+					if (board[y][x].getState() == CellState.NUMBER && board[y][x].getChoosableState() != Choosable.REVEALED) {
+						board[y][x].setAsRevealed();
+					}
+					
+				}
+			
+			}
+			
+		}
+		// Top left corner
+		if (v == 0 && h == 0) {
+			
+			if (board[v][h + 1].getState() == CellState.NUMBER && board[v][h+1].getChoosableState() != Choosable.REVEALED) {
+				board[v][h + 1].setAsRevealed();
+			}
+			if (board[v + 1][h].getState() == CellState.NUMBER && board[v+1][h].getChoosableState() != Choosable.REVEALED) {
+				board[v + 1][h].setAsRevealed();
+			}
+			if (board[v + 1][h + 1].getState() == CellState.NUMBER && board[v+1][h+1].getChoosableState() != Choosable.REVEALED) {
+				board[v + 1][h + 1].setAsRevealed();
+			}
+
+		}
+		// Top right corner
+		if (v == 0 && h == board[v].length-1) {
+			
+			if (board[v][h - 1].getState() == CellState.NUMBER && board[v][h - 1].getChoosableState() != Choosable.REVEALED) {
+				board[v][h - 1].setAsRevealed();
+			}
+			if (board[v + 1][h].getState() == CellState.NUMBER && board[v+1][h].getChoosableState() != Choosable.REVEALED) {
+				board[v + 1][h].setAsRevealed();
+			}
+			if (board[v + 1][h - 1].getState() == CellState.NUMBER && board[v+1][h-1].getChoosableState() != Choosable.REVEALED) {
+				board[v + 1][h - 1].setAsRevealed();
+			}
+		}
+		// Bottom right corner
+		if (v == board.length-1 && h == board[v].length-1) {
+			
+			if (board[v][h - 1].getState() == CellState.NUMBER && board[v][h-1].getChoosableState() != Choosable.REVEALED) {
+				board[v][h - 1].setAsRevealed();
+			}
+			if (board[v - 1][h].getState() == CellState.NUMBER && board[v-1][h].getChoosableState() != Choosable.REVEALED) {
+				board[v - 1][h].setAsRevealed();
+			}
+			if (board[v - 1][h - 1].getState() == CellState.NUMBER && board[v-1][h-1].getChoosableState() != Choosable.REVEALED) {
+				board[v - 1][h - 1].setAsRevealed();
+			}
+		}
+		// Bottom left corner
+		if (v == board.length-1 && h == 0) {
+			
+			if (board[v][h + 1].getState() == CellState.NUMBER && board[v][h+1].getChoosableState() != Choosable.REVEALED) {
+				board[v][h + 1].setAsRevealed();
+			}
+			if (board[v - 1][h].getState() == CellState.NUMBER && board[v-1][h].getChoosableState() != Choosable.REVEALED) {
+				board[v - 1][h].setAsRevealed();
+			}
+			if (board[v - 1][h + 1].getState() == CellState.NUMBER && board[v-1][h+1].getChoosableState() != Choosable.REVEALED) {
+				board[v - 1][h + 1].setAsRevealed();
+			}
+		}
+		// Top row
+		if (v == 0 && h > 0 && h < board[v].length-1) {
+			for (int y = 0; y <= 1; y++) {
+				for (int x = (h - 1); x <= (h + 1); x++) {
+					if (board[y][x].getState() == CellState.NUMBER && board[y][x].getChoosableState() != Choosable.REVEALED) {
+						board[y][x].setAsRevealed();
+					}
+				}
+
+			}
+
+		}
+		// Bottom row
+		if (v == board.length-1 && h > 0 && h < board[v].length-1) {
+			for (int y = board.length - 2; y < board.length; y++) {
+				for (int x = (h - 1); x <= (h + 1); x++) {
+					if (board[y][x].getState() == CellState.NUMBER && board[y][x].getChoosableState() != Choosable.REVEALED) {
+						board[y][x].setAsRevealed();
+					}
+				}
+
+			}
+
+		}
+		// Leftmost row
+		if (v < board.length - 1 && v > 0 && h == 0) {
+			for (int y = v - 1; y <= v + 1; y++) {
+				for (int x = 0; x <= 1; x++) {
+					if (board[y][x].getState() == CellState.NUMBER && board[y][x].getChoosableState() != Choosable.REVEALED) {
+						board[y][x].setAsRevealed();
+					}
+				}
+
+			}
+
+		}
+		// Rightmost row
+		if (v < board.length - 1 && v > 0 && h == board[v].length-1) {
+			for (int y = v - 1; y <= v + 1; y++) {
+				for (int x = board[v].length-2; x < board[v].length; x++) {
+					if (board[y][x].getState() == CellState.NUMBER && board[y][x].getChoosableState() != Choosable.REVEALED) {
+						board[y][x].setAsRevealed();
+					}
+				}
+
+			}
+
+		}
+		board[v][h].setAsRevealed();
+	}
 
 }
