@@ -1,5 +1,6 @@
 package midterm;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MinesweeperApp {
@@ -76,6 +77,7 @@ public class MinesweeperApp {
 					skill = SkillLevel.CUSTOM;
 					skillquestion = false;
 					while (true) {
+						try{
 						System.out.println("How wide do you want the field to be?");
 						h = scanner.nextInt();
 						if (h>30) {
@@ -95,7 +97,16 @@ public class MinesweeperApp {
 							System.out.println("Please choose a lower number of mines.");
 							continue;
 						}
+						if (v <0 || h < 0){
+							System.out.println("Please enter positive numbers for the board dimensions.");
+							continue;
+						}
 						break;
+						}catch (InputMismatchException ex){
+							System.out.println("Please enter numbers for the size of the board.");
+							scanner.nextLine();
+							continue;
+						}
 					}
 					// scanner.nextLine();
 					hiddenBoard = new HiddenMinefield(v, h, mines);

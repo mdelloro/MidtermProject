@@ -62,4 +62,8 @@ public class Cell {
 		public Choosable getChoosableState(){
 			return isRevealed;
 		}
+		
+		public String getStateDisplay(){
+			return state.toString();
+		}
 }
